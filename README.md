@@ -1,16 +1,16 @@
 # Fingerprint sensor for the Samsung Galaxy Tab S2 SM-T713 on LineageOS 22.2
 
 This package makes the fingerprint sensor in the home button work on the **Samsung Galaxy Tab S2 8.0 (model SM-T713, codename `gts28vewifi`)** running **retiredtab's unofficial LineageOS 22.2 (Android 15)**.
+This has been tested ONLY with the ROM available here: https://xdaforums.com/t/unofficial-rom-alpha-lineageos-22-2-for-sm-t713-sep-9-2026.4761196/
 
 Once it's installed you can:
-
 - add fingerprints in Settings
 - unlock the lock screen with your fingerprint
 - use fingerprint login inside apps that support it (tested with Aegis Authenticator, which protects its vault key the same way password managers do)
 
 SELinux, one of Android's main security protections, stays fully on ("enforcing").
 
-> **This is an unofficial, community-made hack. It is not supported by retiredtab or by LineageOS. Please do not ask retiredtab for help with it.**
+> **This is an unofficial, community-made hack. It is not supported by retiredtab or by LineageOS. Please do not ask retiredtab or the LineageOS devs for help with it.**
 
 ---
 
