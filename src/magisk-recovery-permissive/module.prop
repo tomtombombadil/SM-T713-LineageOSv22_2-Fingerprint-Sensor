@@ -1,6 +1,6 @@
 id=t713_fp_permissive
 name=T713 fingerprint test - permissive SELinux
-version=1
-versionCode=1
-author=Tom
-description=TEST ONLY. Sets SELinux to permissive early in boot so the fingerprint/gatekeeper test can log denials without blocking. Remove when done.
+version=1.1
+versionCode=2
+author=tomtombombadil and Claude (Anthropic)
+description=SAFETY NET for the T713 fingerprint package. Keep it installed but switched OFF. Only switch it on to rescue a tablet stuck at the boot animation: it sets SELinux to permissive (less secure) at boot.
