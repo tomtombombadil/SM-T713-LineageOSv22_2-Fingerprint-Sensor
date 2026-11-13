@@ -26,7 +26,7 @@ It has been tested **only** with retiredtab's ROM from this thread: https://xdaf
 | ROM | **retiredtab's LineageOS 22.2** (Android 15), **Sep 9, 2026** release (`lineage-22.2-20260909-UNOFFICIAL-gts28vewifi`), already installed and set up | [retiredtab's XDA thread](https://xdaforums.com/t/unofficial-rom-alpha-lineageos-22-2-for-sm-t713-sep-9-2026.4761196/) |
 | Recovery | **TWRP 3.6.2_9-0** (`twrp-3.6.2_9-0-gts28vewifi.img`) | [twrp.me](https://twrp.me/samsung/samsunggalaxytabs280wifi2016.html) / [downloads](https://dl.twrp.me/gts28vewifi/) |
 | Root | **Magisk v31.1**, installed and working | [Magisk releases](https://github.com/topjohnwu/Magisk/releases) |
-| This package | The four zip files from **v1.0** | [Releases](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/releases/latest) (also in the [`downloads`](downloads) folder) |
+| This package | The four zip files from **v4** | [Releases](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/releases/latest) (also in the [`downloads`](downloads) folder) |
 | Storage | A **microSD card** is recommended, because TWRP can always read it | — |
 
 A PC, USB cable and ADB are **not** needed to install this. They're only useful for some troubleshooting (see the end of this guide).
@@ -39,8 +39,6 @@ A PC, USB cable and ADB are **not** needed to install this. They're only useful 
 | `T713-fingerprint-v4-uninstall.zip` | Removes the package and restores the ROM's original files. Keep it. | TWRP |
 | `T713-fingerprint-selinux-rules-magisk.zip` | Security rules the package needs. **Required:** without it the tablet won't start. | Magisk → Modules |
 | `T713-recovery-permissive-magisk.zip` | A safety net. Installed but switched **off**; only switched on to rescue a tablet that won't start. | Magisk → Modules |
-
-(The TWRP zips are named "v4" because they were the fourth test build. They are release v1.0.)
 
 ---
 
@@ -81,7 +79,7 @@ Follow these steps in order. If anything here is unfamiliar (checking your versi
 
 ### Step 1 — Copy the files to the tablet
 
-Download the four zip files from the [v1.0 release](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/releases/latest) and copy them to the tablet's **microSD card**. You can download them directly on the tablet, or copy them from a PC (see [Copying files to the tablet](#copying-files-to-the-tablet)).
+Download the four zip files from the [v4 release](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/releases/latest) and copy them to the tablet's **microSD card**. You can download them directly on the tablet, or copy them from a PC (see [Copying files to the tablet](#copying-files-to-the-tablet)).
 
 Keep a copy on your PC as well.
 
@@ -382,7 +380,7 @@ The TWRP installer (`src/flashable/META-INF/com/google/android/update-binary`) i
 ### Repository layout
 
 ```
-downloads/                       Ready-to-flash zips (same files as the v1.0 release)
+downloads/                       Ready-to-flash zips (same files as the v4 release)
 src/flashable/                   Contents of the TWRP zips (add a file named "mode"
                                  containing "install" or "uninstall" when zipping)
 src/magisk-sepolicy/             Contents of the SELinux rules Magisk module

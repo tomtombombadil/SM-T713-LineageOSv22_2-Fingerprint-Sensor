@@ -6,8 +6,8 @@ This package changes security-sensitive parts of the tablet: it replaces the com
 
 | Version | Supported |
 |---|---|
-| v1.0 (TWRP zips named `v4`) | ✅ |
-| Earlier test builds (v1–v3, never published) | ❌ |
+| v4 | ✅ |
+| v1–v3 (test builds, never published) | ❌ |
 
 Only the latest release gets fixes. It is supported only on the configuration it was tested with: SM-T713, retiredtab's LineageOS 22.2 Sep 9, 2026 release, TWRP 3.6.2_9-0 and Magisk v31.1.
 
