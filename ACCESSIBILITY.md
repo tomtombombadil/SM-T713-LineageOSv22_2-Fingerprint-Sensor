@@ -27,7 +27,11 @@ The project has two parts:
 These are honest limitations. Most come from the tools this project depends on, not from the package itself.
 
 - **TWRP has no screen reader support.** Installing, updating and uninstalling all require using TWRP's touch interface, which TalkBack can't read. A sighted helper may be needed for those steps.
-- **Getting into TWRP normally needs a three-button combination** (Volume Up + Home + Power, held together). This can be hard for people with limited hand strength or dexterity. If you have a PC with ADB set up, `adb reboot recovery` gets there without the buttons (see the README's troubleshooting section).
+- **Getting into TWRP normally needs a three-button combination** (Volume Up + Home + Power, held together). This can be hard for people with limited hand strength or dexterity. There are two ways to avoid it while the tablet is working normally:
+  - **Power menu (no PC needed):** LineageOS can add a **Recovery** choice to the power menu. Turn it on in **Settings → System → Buttons → Advanced restart** (also called **Advanced reboot**; if you don't see it, turn on Developer options first by tapping **Build number** seven times in **Settings → About tablet**). Then hold **Power**, tap **Restart**, and tap **Recovery**. The power menu works with TalkBack.
+  - **From a PC:** with ADB set up, `adb reboot recovery` restarts straight into TWRP.
+
+  Forcing a restart when the tablet is frozen still needs two buttons held together (**Volume Down + Power** for about 8–10 seconds). The README's [Hints and tips](README.md#hints-and-tips) section lists every button combination.
 - **Fingerprint enrollment with TalkBack has not been tested.** It uses Android's standard enrollment screens, which are designed to work with TalkBack, but this hasn't been confirmed on this tablet.
 - **Some troubleshooting steps use ADB commands** in Command Prompt. These are optional, and they're always given as complete commands to copy.
 - **The documentation is in English only.** Browser translation tools work on it, but there are no maintained translations.

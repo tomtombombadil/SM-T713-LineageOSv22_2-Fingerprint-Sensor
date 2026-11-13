@@ -115,7 +115,7 @@ Keep a copy on your PC as well.
 
 ### Step 5 — Flash the package in TWRP
 
-1. Turn the tablet off. Press and hold **Volume Up + Home + Power** until TWRP appears.
+1. Turn the tablet off. Press and hold **Volume Up + Home + Power** until TWRP appears. (Or, if you've turned on [Advanced restart](#restart-into-recovery-from-the-power-menu): hold **Power → Restart → Recovery**.)
    - If TWRP asks **"Keep System Read only?"**, choose **Swipe to Allow Modifications**.
 2. Tap **Install**, then **Select Storage → Micro SDcard → OK**.
 3. Tap **`T713-fingerprint-v4-install.zip`**, then **Swipe to confirm Flash**.
@@ -154,6 +154,58 @@ This checks that the new PIN checker works before you rely on it. If setting the
 - **Up to 4 fingerprints**, which is Samsung's limit for this sensor. Add or remove them in **Settings → Security → Fingerprint**.
 - **In apps:** look for a setting such as "Use fingerprint", "Biometric unlock" or "Unlock with biometrics", usually under the app's security settings.
 - **Main user only.** Extra user profiles on the tablet aren't supported.
+
+---
+
+## Hints and tips
+
+### Restart into recovery from the power menu
+
+LineageOS can add **Recovery** to the power menu, so you can get into TWRP without the three-button combination.
+
+**To turn it on:**
+
+1. Open **Settings → System → Buttons** and turn on **Advanced restart** (it may be called **Advanced reboot**).
+2. If you don't see it, turn on Developer options first: **Settings → About tablet**, tap **Build number** seven times, then look again. On some builds the switch is in **Settings → System → Developer options** instead.
+
+**To use it:**
+
+1. Hold the **Power** button until the power menu appears.
+2. Tap **Restart**. You'll now get a choice of where to restart to.
+3. Tap **Recovery** to restart into TWRP, or **System** for a normal restart.
+
+This is the easiest way into TWRP for installing, updating and uninstalling, as long as the tablet is working normally.
+
+### Button combinations
+
+| To do this | Press and hold | Notes |
+|---|---|---|
+| **Force a restart** (tablet frozen or stuck) | **Volume Down + Power** for about 8–10 seconds | Let go when the screen goes black. Works at any time. |
+| **Boot into recovery (TWRP)** | **Home + Volume Up + Power**, starting with the tablet off | Keep holding until TWRP appears. If the tablet is stuck, force a restart first and switch to this combination the moment the screen goes black. |
+| **Boot into Download mode** | **Home + Volume Down + Power**, starting with the tablet off | A warning screen appears: press **Volume Up** to continue, or **Volume Down** to cancel and restart. |
+| **Leave Download mode** | **Volume Down + Power** for about 8–10 seconds | Restarts the tablet normally. |
+| **Turn off normally** | **Power**, then tap **Power off** | — |
+
+**What about fastboot?** Samsung tablets don't have fastboot. Their equivalent is **Download mode** (also called Odin mode), used with Samsung's Odin tool on a PC, for example to install TWRP in the first place. This package doesn't use it.
+
+**From a PC with ADB** (see [Setting up ADB](#setting-up-adb-on-a-windows-pc)), while the tablet is running:
+
+| To restart into | Command |
+|---|---|
+| Recovery (TWRP) | `adb reboot recovery` |
+| Download mode | `adb reboot download` |
+| Normal restart | `adb reboot` |
+
+From inside TWRP, the **Reboot** button offers **System**, **Recovery**, **Power Off** and usually **Download**.
+
+### Other tips
+
+- **Keep the package files on the microSD card**, along with `Magisk-v31.1.zip` and the uninstall zip, so they're always there when you update LineageOS.
+- **The first unlock after every restart needs your PIN.** That's normal Android behavior. After that, fingerprints work.
+- **If fingerprint setup says "Something went wrong" on the first try after a restart, just try again.** The second attempt works.
+- **Enroll the same finger twice** (as two separate fingerprints) if it doesn't always recognize you. Use slightly different positions each time. You can have up to 4.
+- **Don't confuse the two Magisk modules.** "T713 fingerprint SELinux rules" must stay **on**. The "permissive" safety net must stay **off** unless you're rescuing a tablet that won't start.
+- **Before any LineageOS update:** delete all fingerprints and set the screen lock to **None**. See [Life cycle](#life-cycle-updating-and-uninstalling).
 
 ---
 
@@ -211,14 +263,10 @@ A small folder of fingerprint data (`/data/biometrics`) is left behind. It's har
 
 ### Getting into TWRP when the tablet is stuck
 
-1. Hold **Volume Down + Home + Power** for about 10 seconds, until the screen goes black. This forces a restart.
-2. As soon as it goes black, switch to holding **Volume Up + Home + Power** until TWRP appears.
+1. Hold **Volume Down + Power** for about 8–10 seconds, until the screen goes black. This forces a restart.
+2. As soon as it goes black, switch to holding **Home + Volume Up + Power** until TWRP appears.
 
-**Without the button combination:** if the tablet is running and you have ADB set up (see [Setting up ADB](#setting-up-adb-on-a-windows-pc)), this command restarts it straight into TWRP:
-
-```
-adb reboot recovery
-```
+See [Button combinations](#button-combinations) for all the key presses, and [Restart into recovery from the power menu](#restart-into-recovery-from-the-power-menu) for a way to reach TWRP without buttons while the tablet is working.
 
 ### Stuck on the boot animation right after installing
 
