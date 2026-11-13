@@ -1,0 +1,12 @@
+bin/hw/android.hardware.biometrics.fingerprint-service.samsung
+bin/hw/android.hardware.gatekeeper@1.0-service
+etc/init/android.hardware.biometrics.fingerprint-service.samsung.rc
+etc/init/android.hardware.gatekeeper@1.0-service.rc
+etc/permissions/android.hardware.fingerprint.xml
+etc/vintf/manifest/android.hardware.biometrics.fingerprint-service.samsung.xml
+lib64/android.hardware.biometrics.common-V4-ndk.so
+lib64/android.hardware.biometrics.common.util.so
+lib64/android.hardware.biometrics.fingerprint-V4-ndk.so
+lib64/android.hardware.gatekeeper@1.0.so
+lib64/android.hardware.keymaster-V4-ndk.so
+lib64/hw/android.hardware.gatekeeper@1.0-impl.so

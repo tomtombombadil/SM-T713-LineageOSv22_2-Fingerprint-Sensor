@@ -1,0 +1,6 @@
+id=t713_fp_permissive
+name=T713 fingerprint test - permissive SELinux
+version=1
+versionCode=1
+author=Tom
+description=TEST ONLY. Sets SELinux to permissive early in boot so the fingerprint/gatekeeper test can log denials without blocking. Remove when done.

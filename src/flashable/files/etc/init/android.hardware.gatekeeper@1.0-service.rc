@@ -1,0 +1,13 @@
+# T713 fingerprint package v4. Gatekeeper service from LineageOS 22.2
+# (gts4lvwifi build 20261111), loading the T713's QSEE gatekeeper.msm8952.so.
+# That module waits forever for sys.keymaster.loaded=true, which the stock
+# QSEE keymaster used to set. The ROM uses a software keymaster, so set it
+# here; the gatekeeper module then loads the keymaster trustlet itself.
+on early-boot
+    setprop sys.keymaster.loaded true
+
+service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+    interface android.hardware.gatekeeper@1.0::IGatekeeper default
+    class hal
+    user system
+    group system

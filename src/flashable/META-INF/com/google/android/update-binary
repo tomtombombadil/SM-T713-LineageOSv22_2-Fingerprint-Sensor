@@ -1,0 +1,107 @@
+#!/sbin/sh
+# T713 fingerprint package v4 for retiredtab LineageOS 22.2 (gts28vewifi).
+# Installs the LineageOS AIDL Samsung fingerprint service and swaps the
+# software gatekeeper for the TrustZone (QSEE) gatekeeper. Uninstall restores.
+OUTFD=$2
+ZIPFILE="$3"
+TMP=/tmp/t713fp
+
+ui()    { echo "ui_print $1" >&$OUTFD; echo "ui_print" >&$OUTFD; }
+abort() { ui "ERROR: $1"; ui "Nothing further was changed."; cleanup; exit 1; }
+cleanup() { cd /; rm -rf $TMP; umount /system_root /system /vendor 2>/dev/null; }
+
+ui "T713 fingerprint package v4"
+rm -rf $TMP; mkdir -p $TMP; cd $TMP || abort "no /tmp"
+unzip -o "$ZIPFILE" -d $TMP >/dev/null 2>&1 || abort "could not unpack zip"
+MODE=$(cat mode)
+
+DEV=$(getprop ro.product.device)
+[ -z "$DEV" ] && DEV=$(getprop ro.build.product)
+case "$DEV" in
+  *gts28vewifi*) ;;
+  *) abort "this is for SM-T713 (gts28vewifi), recovery reports: $DEV" ;;
+esac
+
+for m in /system_root /system /vendor; do mount $m 2>/dev/null; done
+for m in /system_root /system /vendor; do mount -o rw,remount $m 2>/dev/null; done
+
+V=""
+for c in /system_root/system/vendor /system/system/vendor /system_root/vendor /system/vendor /vendor; do
+  if [ -d "$c/bin/hw" ] && [ -d "$c/etc/init" ]; then V=$c; break; fi
+done
+[ -z "$V" ] && abort "could not find the vendor folder (is System mounted?)"
+SYSDIR=${V%/vendor}
+ui "Vendor folder: $V"
+
+BP=""
+for c in /system_root/system/build.prop /system/system/build.prop /system/build.prop; do
+  [ -f "$c" ] && { BP=$c; break; }
+done
+[ -z "$BP" ] && abort "could not find system build.prop"
+REL=$(grep '^ro.build.version.release=' $BP | head -1 | cut -d= -f2)
+[ "$REL" = "15" ] || abort "expected Android 15 (LineageOS 22.2), found Android $REL"
+
+MARK=$V/etc/t713-fingerprint.installed
+BAK=$V/etc/t713-backup
+
+remove_installed() {
+  [ -f "$MARK" ] || return 1
+  while read -r a b c; do
+    case "$a" in
+      moved) [ -f "$c" ] && mv -f "$c" "$b" && ui "  restored $(basename $b)" ;;
+      file)  rm -f "$V/$b" && ui "  removed $b" ;;
+      "")    ;;
+      *)     rm -f "$V/$a" && ui "  removed $a" ;;   # v1 marker format
+    esac
+  done < $MARK
+  rm -f "$MARK"; rmdir "$BAK" 2>/dev/null
+  return 0
+}
+
+if [ "$MODE" = "uninstall" ]; then
+  remove_installed || abort "test package is not installed"
+  ui "Removed. Reboot to System."
+  cleanup; exit 0
+fi
+
+cd $TMP/files && sha256sum -c ../SHA256SUMS >/dev/null 2>&1 || abort "file checksum mismatch, re-download the zip"
+if [ -f "$MARK" ]; then ui "Removing previous test package first"; remove_installed; fi
+
+ctx() {
+  c=$(stat -c %C "$1" 2>/dev/null)
+  case "$c" in u:object_r:*) echo "$c" ;; *) echo "$2" ;; esac
+}
+LIBCTX=$(ctx $V/lib64/libQSEEComAPI.so u:object_r:vendor_file:s0)
+ETCCTX=$(ctx $V/etc/vintf/manifest.xml u:object_r:vendor_configs_file:s0)
+
+: > $MARK || abort "vendor folder is read-only"
+
+# Disable the software gatekeeper service (backed up, restored on uninstall)
+mkdir -p $BAK
+for rc in $(grep -l "gatekeeper@1.0-service.software" $V/etc/init/*.rc 2>/dev/null); do
+  mv -f "$rc" "$BAK/$(basename $rc)" || abort "could not move $rc"
+  echo "moved $rc $BAK/$(basename $rc)" >> $MARK
+  ui "  disabled software gatekeeper ($(basename $rc))"
+done
+
+for f in $(cat $TMP/filelist.txt); do
+  case "$f" in
+    etc/permissions/*|lib64/android.hardware.gatekeeper@1.0.so)
+      if [ -f "$V/$f" ] || [ -f "$SYSDIR/$f" ]; then ui "  kept existing $f"; continue; fi ;;
+  esac
+  mkdir -p "$V/$(dirname $f)"
+  cp -f "$TMP/files/$f" "$V/$f" || abort "copy failed: $f"
+  echo "file $f" >> $MARK
+  case "$f" in
+    bin/hw/*fingerprint*) chown 0:2000 "$V/$f"; chmod 0755 "$V/$f"; chcon u:object_r:hal_fingerprint_default_exec:s0 "$V/$f" ;;
+    bin/hw/*gatekeeper*)  chown 0:2000 "$V/$f"; chmod 0755 "$V/$f"; chcon u:object_r:hal_gatekeeper_default_exec:s0 "$V/$f" ;;
+    lib64/*)              chown 0:0 "$V/$f"; chmod 0644 "$V/$f"; chcon $LIBCTX "$V/$f" ;;
+    *)                    chown 0:0 "$V/$f"; chmod 0644 "$V/$f"; chcon $ETCCTX "$V/$f" ;;
+  esac
+  ui "  installed $f"
+done
+chmod 0644 $MARK; chcon $ETCCTX $MARK
+
+ui "Done. Reboot to System."
+cleanup
+exit 0

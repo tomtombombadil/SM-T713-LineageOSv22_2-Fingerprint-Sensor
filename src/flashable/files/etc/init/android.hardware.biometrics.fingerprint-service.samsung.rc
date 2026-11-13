@@ -1,0 +1,28 @@
+# T713 fingerprint package v4. Service from LineageOS 22.2 hardware/samsung
+# (gts4lvwifi build 20261111). Settings and folders below were confirmed
+# working on SM-T713 with retiredtab LineageOS 22.2 on 2026-11-13.
+on init
+    setprop ro.vendor.fingerprint.type home
+    # Samsung's older libbauthserver reports enroll progress as a percentage
+    setprop ro.vendor.fingerprint.uses_percentage_samples true
+    setprop ro.vendor.fingerprint.cancel_on_enroll_completion true
+    setprop ro.vendor.fingerprint.force_calibrate true
+
+on post-fs-data
+    # libbauthserver ignores the service's folder and stores data in /data/biometrics
+    mkdir /data/biometrics 0770 system system
+    mkdir /data/biometrics/fp 0700 system system
+    mkdir /data/biometrics/fp/User_0 0700 system system
+    restorecon_recursive /data/biometrics
+    # The service lists enrolled fingers from /data/vendor/biometrics/fp/User_0,
+    # so point that at the library's real template folder (user 0 only)
+    mkdir /data/vendor/biometrics 0770 system system
+    mkdir /data/vendor/biometrics/fp 0770 system system
+    rmdir /data/vendor/biometrics/fp/User_0
+    symlink /data/biometrics/fp/User_0 /data/vendor/biometrics/fp/User_0
+
+service vendor.fingerprint-default /vendor/bin/hw/android.hardware.biometrics.fingerprint-service.samsung
+    class late_start
+    user system
+    group system input uhid
+    shutdown critical
