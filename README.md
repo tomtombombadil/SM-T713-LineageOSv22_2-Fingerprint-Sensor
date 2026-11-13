@@ -214,6 +214,12 @@ A small folder of fingerprint data (`/data/biometrics`) is left behind. It's har
 1. Hold **Volume Down + Home + Power** for about 10 seconds, until the screen goes black. This forces a restart.
 2. As soon as it goes black, switch to holding **Volume Up + Home + Power** until TWRP appears.
 
+**Without the button combination:** if the tablet is running and you have ADB set up (see [Setting up ADB](#setting-up-adb-on-a-windows-pc)), this command restarts it straight into TWRP:
+
+```
+adb reboot recovery
+```
+
 ### Stuck on the boot animation right after installing
 
 No PIN is set at this point, so this is safe to undo. Get into TWRP (above), flash **`T713-fingerprint-v4-uninstall.zip`**, and reboot.
@@ -396,6 +402,7 @@ release-notes/                   Release notes for each version
 - **Found a bug?** Open a [bug report](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/issues/new/choose).
 - **Found a security problem?** Please report it privately; see the [Security Policy](SECURITY.md).
 - **Want to help?** See [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+- **Something hard to use?** See [ACCESSIBILITY.md](ACCESSIBILITY.md) for known barriers and how to report one.
 
 ## License
 
