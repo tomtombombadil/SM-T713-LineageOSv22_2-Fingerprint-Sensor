@@ -392,6 +392,13 @@ release-notes/                   Release notes for each version
 
 ---
 
+## Contributing, bugs and security
+
+- **Did it work for you, or not?** Please open a [compatibility report](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/issues/new/choose). It helps everyone, especially for newer ROM builds.
+- **Found a bug?** Open a [bug report](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/issues/new/choose).
+- **Found a security problem?** Please report it privately; see the [Security Policy](SECURITY.md).
+- **Want to help?** See [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## License
 
 The scripts and configuration in this repository are licensed under the [Apache License 2.0](LICENSE). The LineageOS/AOSP binaries included are also under the Apache License 2.0; see [NOTICE.md](NOTICE.md) for where they came from.

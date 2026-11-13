@@ -1,0 +1,78 @@
+name: Bug report
+description: Something isn't working with the fingerprint package
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. **Security problems should not be reported here.** Please follow the [Security Policy](https://github.com/tomtombombadil/SM-T713-LineageOSv22_2-Fingerprint-Sensor/blob/main/SECURITY.md) instead.
+
+        Please don't ask retiredtab or the LineageOS developers about this package; problems with it belong here.
+  - type: input
+    id: rom
+    attributes:
+      label: LineageOS build
+      description: Settings → About tablet → LineageOS version
+      placeholder: lineage-22.2-20260909-UNOFFICIAL-gts28vewifi
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Package version
+      placeholder: v1.0
+    validations:
+      required: true
+  - type: input
+    id: twrp
+    attributes:
+      label: TWRP version
+      placeholder: 3.6.2_9-0
+    validations:
+      required: true
+  - type: input
+    id: magisk
+    attributes:
+      label: Magisk version
+      placeholder: "31.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where did it go wrong?
+      options:
+        - Flashing the install zip in TWRP
+        - Tablet won't start / stuck on boot animation
+        - Setting a PIN
+        - Adding a fingerprint
+        - Unlocking with a fingerprint
+        - Fingerprint in an app
+        - Fingerprints disappeared after a restart
+        - Updating LineageOS
+        - Uninstalling
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, step by step, what did you expect, and what happened instead? Include any error messages exactly as shown.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: If you can, attach a log. See "Collecting a log for a bug report" in the README. You can drag the file into this box.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I'm using an SM-T713 (not another model).
+          required: true
+        - label: I followed the install steps in order, including installing the SELinux rules Magisk module first.
+        - label: If this happened after a LineageOS update, I removed my fingerprints and set the screen lock to None before updating.

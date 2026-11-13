@@ -1,0 +1,52 @@
+name: Compatibility report
+description: Tell us whether the package worked (or not) on your tablet and ROM build
+title: "[Compatibility] "
+labels: ["compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The package has only been tested on one tablet. Reports from other builds, especially newer retiredtab releases, help everyone. Successes are just as useful as failures.
+  - type: input
+    id: rom
+    attributes:
+      label: LineageOS build
+      description: Settings → About tablet → LineageOS version
+      placeholder: lineage-22.2-20261009-UNOFFICIAL-gts28vewifi
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Package version
+      placeholder: v1.0
+    validations:
+      required: true
+  - type: input
+    id: twrp
+    attributes:
+      label: TWRP version
+      placeholder: 3.6.2_9-0
+  - type: input
+    id: magisk
+    attributes:
+      label: Magisk version
+      placeholder: "31.1"
+  - type: checkboxes
+    id: results
+    attributes:
+      label: What worked?
+      description: Tick everything that worked.
+      options:
+        - label: The install zip flashed without errors
+        - label: The tablet started normally
+        - label: Setting a PIN worked
+        - label: Adding a fingerprint worked
+        - label: Unlocking the lock screen with a fingerprint worked
+        - label: Fingerprints were still there after a restart
+        - label: Fingerprint login inside an app worked (please name the app below)
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else, such as apps you tested or problems you ran into.
