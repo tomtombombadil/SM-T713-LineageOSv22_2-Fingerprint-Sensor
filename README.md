@@ -165,8 +165,8 @@ LineageOS can add **Recovery** to the power menu, so you can get into TWRP witho
 
 **To turn it on:**
 
-1. Open **Settings → System → Buttons** and turn on **Advanced restart** (it may be called **Advanced reboot**).
-2. If you don't see it, turn on Developer options first: **Settings → About tablet**, tap **Build number** seven times, then look again. On some builds the switch is in **Settings → System → Developer options** instead.
+1. Open **Settings → System → Buttons → Power menu**.
+2. Turn on **Advanced restart**.
 
 **To use it:**
 
